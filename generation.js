@@ -26,7 +26,7 @@ function genRndExpr (func_set, term_set, max_d, method) {
 /**
  * Transforma um indivíduo da notação de vetor em notação de árvore de fato
  * @param {any} expr 
- * @returns {Node}
+ * @returns {import('./node')}
  */
 function vecToTree (expr) {
     if (Array.isArray(expr)) {
@@ -40,7 +40,7 @@ function vecToTree (expr) {
 /**
  * Cresce um indivíduo de acordo com o método grow
  * @param {number} maxDepth profundidade máxima da árvore
- * @returns {Node}
+ * @returns {import('./node')}
  */
 function grow (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'grow'))
@@ -49,7 +49,7 @@ function grow (maxDepth) {
 /**
  * Cresce um indivíduo de acordo com o método full
  * @param {number} maxDepth profundidade máxima da árvore
- * @returns {Node}
+ * @returns {import('./node')}
  */
 function full (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'full'))
