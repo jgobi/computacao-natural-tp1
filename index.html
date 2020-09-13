@@ -1,0 +1,30 @@
+
+<html>
+    <body>
+        <style>
+            .c{display:flex}
+            .area{width:100%;height: 80vh;}
+        </style>
+        <div class="c">
+            <div style="width:100%;text-align:center">Indivíduo e fitness gerado</div>
+            <div style="width:100%;text-align:center">Predições</div>
+        </div>
+        <div class="c">
+            <textarea id="error" readonly class="area"></textarea>
+            <textarea id="info"  readonly class="area"></textarea>
+        </div>
+        <br>
+        <button onclick="vai()">Rodar!</button>
+        <script>
+            let error = document.getElementById('error');
+            let info = document.getElementById('info');
+            console.log = (...args) => info.value = args.join(' ');
+            console.error = (...args) => error.value = args.join(' ');
+            function vai() {
+                let myScript = document.createElement("script");
+                myScript.setAttribute("src", "bundle.js");
+                document.body.appendChild(myScript);
+            };
+        </script>
+    </body>
+</html>
