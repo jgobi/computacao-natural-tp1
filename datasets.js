@@ -11,6 +11,8 @@ const fs = require('fs');
 // const concrete = loadFile('concrete.txt');
 
 
+// Carrega datasets
+
 const circle =        fs.readFileSync(__dirname+'/ds/SR_circle.txt', 'utf8').trim().split('\n').map(s=>s.trim().split(/\s+/).map(Number))
 const ellipse_noise = fs.readFileSync(__dirname+'/ds/SR_ellipse_noise.txt', 'utf8').trim().split('\n').map(s=>s.trim().split(/\s+/).map(Number))
 const div =           fs.readFileSync(__dirname+'/ds/SR_div.txt', 'utf8').trim().split('\n').map(s=>s.trim().split(/\s+/).map(Number))

@@ -1,6 +1,13 @@
 const Node = require('./node');
 const { chooseRandomElement, random, funções, terminais } = require('./common');
 
+/**
+ * Gera um indivíduo na notação de vetor usada no livro
+ * @param {import('./types').FunçãoPG[]} func_set 
+ * @param {(number|string)[]} term_set 
+ * @param {number} max_d 
+ * @param {'grow'|'full'} method 
+ */
 function genRndExpr (func_set, term_set, max_d, method) {
     let expr;
     if (max_d === 0 || (method === 'grow' && random.double() < ((term_set.length)/(term_set.length + func_set.length)))) {
@@ -17,9 +24,9 @@ function genRndExpr (func_set, term_set, max_d, method) {
 }
 
 /**
- * 
+ * Transforma um indivíduo da notação de vetor em notação de árvore de fato
  * @param {any} expr 
- * @param {Node} [tree] 
+ * @returns {Node}
  */
 function vecToTree (expr) {
     if (Array.isArray(expr)) {
@@ -30,14 +37,29 @@ function vecToTree (expr) {
     return new Node(expr)
 }
 
+/**
+ * Cresce um indivíduo de acordo com o método grow
+ * @param {number} maxDepth profundidade máxima da árvore
+ * @returns {Node}
+ */
 function grow (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'grow'))
 }
 
+/**
+ * Cresce um indivíduo de acordo com o método full
+ * @param {number} maxDepth profundidade máxima da árvore
+ * @returns {Node}
+ */
 function full (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'full'))
 }
 
+/**
+ * Gera uma população de tamanho `n` de acordo com o método ramped half and half
+ * @param {number} n tamanho da população
+ * @param {number} maxDepth profundidade máxima da árvore
+ */
 function halfAndHalf (n, maxDepth) {
     let pop = [];
     let m = Math.floor(n/2);
