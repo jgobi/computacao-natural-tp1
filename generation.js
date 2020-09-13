@@ -10,7 +10,7 @@ const { chooseRandomElement, random, funções, terminais } = require('./common'
  */
 function genRndExpr (func_set, term_set, max_d, method) {
     let expr;
-    if (max_d === 0 || (method === 'grow' && random.double() < ((term_set.length)/(term_set.length + func_set.length)))) {
+    if (max_d === 0 || (method === 'grow' && random.double() < 0.5)) {
         expr = chooseRandomElement(term_set);
     } else {
         let args=[];
