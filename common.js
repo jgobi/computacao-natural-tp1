@@ -18,7 +18,7 @@ const N_VARIÁVEIS = DATASET[0].length - 1;
 const RANDOM_SEED = 'leblebleb'
 
 const K = 2;
-const ELITISMO = true;
+const ELITISMO = 2;
 const POPULAÇÃO = 50;
 const N_GERAÇÕES = 100;
 const N_REPETIÇÕES = 30;

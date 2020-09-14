@@ -54,15 +54,6 @@ function sortFitness (fit) {
     return fit.sort((a, b) => a[1] - b[1])
 }
 
-/**
- * Escolhe 2 indivíduos por torneio
- * @param {import('./types').Fitness[]} fit 
- * @param {number} k 
- */
-function escolheDoisPorTorneio (fit, k) {
-    return [tournament(fit, k)[0][0], tournament(fit, k)[0][0]];
-}
-
 (function programa (dataset) {
     console.error('Random seed: ', RANDOM_SEED);
     let osMelhores = [];
@@ -75,37 +66,25 @@ function escolheDoisPorTorneio (fit, k) {
             let fit = fitness(minhaPopulação, dataset);
             let novaPopulação = [];
 
-            for (let i = 0; i < (POPULAÇÃO/2) - +ELITISMO; i++) {
-                // cada iteração coloca 2 na população, então repito até:
-                //   - se tiver elitismo: população/2 - 1
-                //   - se não tiver elitismo: população/2
-                let [a, b] = escolheDoisPorTorneio(fit, K);
+            for (let i = 0; i < POPULAÇÃO - ELITISMO; i++) {
+                let [ a ] = tournament(fit, K);
 
                 let rand = random.double()
                 if (rand < CHANCE_CROSSOVER) { // Se for crossover
-                    novaPopulação.push(...crossover(a, b));
+                    let [ b ] = tournament(fit, K);
+                    let [ filho ] = crossover(a[0], b[0]);
+                    novaPopulação.push(filho);
                 } else if (rand < CHANCE_CROSSOVER + CHANCE_MUTAÇÃO) {
-                    // Como tenho que adicionar 2 elementos, verifico se tenho que fazer mutação
-                    // só em um ou nos dois
-                    let rr = random.double();
-                    if (rr < 1/3) {
-                        novaPopulação.push(mutação(a), b);
-                    }
-                    else if (rr < 2/3) {
-                        novaPopulação.push(a, mutação(b));
-                    }
-                    else {
-                        novaPopulação.push(mutação(a), mutação(b));
-                    }
+                    novaPopulação.push(mutação(a[0]));
                 } else {
                     // reprodução
-                    novaPopulação.push(a, b);
+                    novaPopulação.push(a[0]);
                 }
             }
-            // se tiver elitismo, coloca os 2 melhores na população.
+
             if (ELITISMO) {
                 sortFitness(fit);
-                novaPopulação.push(fit[0][0].copy(), fit[1][0].copy());
+                novaPopulação.push(...fit.slice(0, ELITISMO).map(x => x[0]));
             }
             minhaPopulação = novaPopulação;
         }
