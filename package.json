@@ -13,6 +13,7 @@
     "browserify": "^16.5.2"
   },
   "dependencies": {
+    "matplotnode": "^0.4.2",
     "nodeplotlib": "^0.6.5"
   }
 }
