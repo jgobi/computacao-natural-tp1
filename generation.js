@@ -67,7 +67,8 @@ function halfAndHalf (n, maxDepth) {
         pop.push(grow(maxDepth));
     }
     for (let i = m; i < n; i++) {
-        pop.push(full(maxDepth));
+        let d = i % maxDepth + 1; // tamanhos variados na geração pelo método full
+        pop.push(full(d));
     }
     return pop;
 }
