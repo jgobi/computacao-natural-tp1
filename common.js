@@ -11,9 +11,10 @@ const POPULAÇÃO = 50;
 const N_GERAÇÕES = 100;
 const N_REPETIÇÕES = 30;
 const ALTURA_MÁXIMA = 7;
+const CHANCE_MUTAÇÃO = 0.05;
 const CHANCE_CROSSOVER = 0.9;
 
-const N_VARIÁVEIS = 1;
+const N_VARIÁVEIS = 8;
 
 // =========== [FIM] CONSTANTES
 
@@ -80,6 +81,7 @@ const stringify = o => JSON.stringify(o, (key, value) => (key === 'parent') ? un
 
 module.exports = {
     CHANCE_CROSSOVER,
+    CHANCE_MUTAÇÃO,
     ALTURA_MÁXIMA,
     N_REPETIÇÕES,
     RANDOM_SEED,

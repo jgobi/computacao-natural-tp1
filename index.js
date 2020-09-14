@@ -6,6 +6,7 @@ const {
     stringify,
     random,
     CHANCE_CROSSOVER,
+    CHANCE_MUTAÇÃO,
     ALTURA_MÁXIMA,
     N_REPETIÇÕES,
     RANDOM_SEED,
@@ -41,7 +42,7 @@ function fitness (população, dataset) {
  * @returns {import('./types').Fitness[]}
  */
 function tournament (fit, k) {
-    return Array(k).fill(fit).map(chooseRandomElement);
+    return sortFitness(Array(k).fill(fit).map(chooseRandomElement));
 }
 
 /**
@@ -71,9 +72,6 @@ function escolheDoisPorTorneio (fit, k) {
     return [tournament(fit, k)[0][0], tournament(fit, k)[0][0]];
 }
 
-
-
-const CHANCE_MUTAÇÃO = 0.05;
 (function programa (dataset) {
     console.error('Random seed: ', RANDOM_SEED);
     let osMelhores = [];
@@ -121,10 +119,13 @@ const CHANCE_MUTAÇÃO = 0.05;
             minhaPopulação = novaPopulação;
         }
 
-        let caraMaisTop = getBest(minhaPopulação, dataset).shift();
+        let fit = fitness(minhaPopulação, dataset);
+        sortFitness(fit);
+        let caraMaisTop = fit[0];
         console.error(stringify(caraMaisTop));
-        osMelhores.push(caraMaisTop)
+        osMelhores.push(caraMaisTop);
     }
+
     console.error('======================')
     sortFitness(osMelhores);
     let besties = getBest(osMelhores.map(i=>i[0]), dataset);
@@ -137,4 +138,4 @@ const CHANCE_MUTAÇÃO = 0.05;
         return rr;
     })));
     
-})(datasets.div_noise);
+})(datasets.concrete);

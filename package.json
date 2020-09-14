@@ -11,5 +11,8 @@
   "devDependencies": {
     "brfs": "^2.0.2",
     "browserify": "^16.5.2"
+  },
+  "dependencies": {
+    "nodeplotlib": "^0.6.5"
   }
 }
