@@ -10,7 +10,7 @@ const { chooseRandomElement, random, funções, terminais } = require('./common'
  */
 function genRndExpr (func_set, term_set, max_d, method) {
     let expr;
-    if (max_d === 0 || (method === 'grow' && random.double() < 0.5)) {
+    if (max_d === 0 || (method === 'grow' && random.double() < ((term_set.length)/(term_set.length + func_set.length)))) {
         expr = chooseRandomElement(term_set);
     } else {
         let args=[];
@@ -26,7 +26,7 @@ function genRndExpr (func_set, term_set, max_d, method) {
 /**
  * Transforma um indivíduo da notação de vetor em notação de árvore de fato
  * @param {any} expr 
- * @returns {import('./node')}
+ * @returns {Node}
  */
 function vecToTree (expr) {
     if (Array.isArray(expr)) {
@@ -40,7 +40,7 @@ function vecToTree (expr) {
 /**
  * Cresce um indivíduo de acordo com o método grow
  * @param {number} maxDepth profundidade máxima da árvore
- * @returns {import('./node')}
+ * @returns {Node}
  */
 function grow (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'grow'))
@@ -49,7 +49,7 @@ function grow (maxDepth) {
 /**
  * Cresce um indivíduo de acordo com o método full
  * @param {number} maxDepth profundidade máxima da árvore
- * @returns {import('./node')}
+ * @returns {Node}
  */
 function full (maxDepth) {
     return vecToTree(genRndExpr(funções, terminais, maxDepth, 'full'))
