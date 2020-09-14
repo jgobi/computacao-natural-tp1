@@ -30,5 +30,5 @@ def plotFitness(X, real_y, pred_y, xlabel='X', pointsize=8, errsize=3.5, alpha =
     axis.xlabel(xlabel)
     axis.title('Best individual')
 
-plotFitness(list(range(len(dt))), dt.iloc[:,-1].values, df.iloc[:,-1].values)
+plotFitness(list(range(len(dt))), df.iloc[:,-1].values, dt.iloc[:,-1].values)
 plt.show()
