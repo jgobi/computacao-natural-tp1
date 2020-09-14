@@ -1,5 +1,4 @@
 const { halfAndHalf } = require('./generation');
-const datasets = require('./datasets');
 const { crossover, mutação } = require('./operators');
 const {
     chooseRandomElement,
@@ -13,6 +12,7 @@ const {
     N_GERAÇÕES,
     POPULAÇÃO,
     ELITISMO,
+    DATASET,
     K,
 } = require('./common');
 
@@ -52,15 +52,6 @@ function tournament (fit, k) {
  */
 function sortFitness (fit) {
     return fit.sort((a, b) => a[1] - b[1])
-}
-
-/**
- * Calcula e ordena a fitness para uma população em um dataset
- * @param {import('./node')[]} população 
- * @param {number[][]} dataset 
- */
-function getBest (população, dataset) {
-    return sortFitness(fitness(população, dataset));
 }
 
 /**
@@ -126,11 +117,10 @@ function escolheDoisPorTorneio (fit, k) {
         osMelhores.push(caraMaisTop);
     }
 
-    console.error('======================')
+    console.error('======================');
     sortFitness(osMelhores);
-    let besties = getBest(osMelhores.map(i=>i[0]), dataset);
-    let caraMaisTopMesmo = besties.shift();
-    console.error(stringify(caraMaisTopMesmo), besties.pop()[1]);
+    let caraMaisTopMesmo = osMelhores.shift();
+    console.error(stringify(caraMaisTopMesmo));
     console.log(stringify(dataset.map(r => {
         let rr = [...r];
         rr.pop();
@@ -138,4 +128,4 @@ function escolheDoisPorTorneio (fit, k) {
         return rr;
     })));
     
-})(datasets.concrete);
+})(DATASET);

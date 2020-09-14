@@ -1,6 +1,18 @@
+const path = require('path');
+const fs = require('fs');
 const alea = require('./alea');
-const { mul, sdiv, minus, plus, tan, sqrt, quadrado } = require('./funcoes');
+const { mul, sdiv, minus, plus, tan, sqrt, quadrado } = require('./functions');
 
+function loadDataset (file) {
+    return fs.readFileSync(path.join(__dirname, file), 'utf8').trim().split('\n').map(s=>s.trim().split(/\s+/).map(Number));
+}
+
+// =========== [INÍCIO] DATASET
+
+const DATASET = process.argv[2] ? loadDataset(process.argv[2]) : require('./datasets').div;
+const N_VARIÁVEIS = DATASET[0].length - 1;
+
+// =========== [FIM] DATASET
 // =========== [INÍCIO] CONSTANTES
 
 const RANDOM_SEED = 'leblebleb'
@@ -13,8 +25,6 @@ const N_REPETIÇÕES = 30;
 const ALTURA_MÁXIMA = 7;
 const CHANCE_MUTAÇÃO = 0.05;
 const CHANCE_CROSSOVER = 0.9;
-
-const N_VARIÁVEIS = 8;
 
 // =========== [FIM] CONSTANTES
 
@@ -88,6 +98,7 @@ module.exports = {
     N_GERAÇÕES,
     POPULAÇÃO,
     ELITISMO,
+    DATASET,
     K,
 
     chooseRandomElement,
